@@ -48,4 +48,5 @@ def httpx_scan(target: List[str], ports: Optional[List[int]] = None, probes: Opt
 if __name__ == "__main__":
     host = os.getenv("HOST", "0.0.0.0")
     port = int(os.getenv("PORT", "8000"))
-    mcp.run(transport="sse", host=host, port=port, path="/mcp")
+    # Use HTTP transport so clients can POST JSON-RPC to /mcp (SSE was causing 405)
+    mcp.run(transport="http", host=host, port=port, path="/mcp")
